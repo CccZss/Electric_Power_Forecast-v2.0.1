@@ -1,14 +1,14 @@
 <template>
 	<section>
-		<h1 class="title">导入数据</h1>
-		<div class="info">
-			<!-- <span class="input-tip">数据集名</span> -->
+		<p class="title">导入数据</p>
+		<div class="info blue-bar">
+			<span class="input-tip">数据名：</span>
 			<div class="upload-wrap">
 				<Input class="input" v-model="dataName" placeholder="数据集名"></Input>
-				<Button type="primary" class="upload-file-bt" @click="uploadFile">上传文件</Button>
+				<Button type="primary" class="upload-file-bt my-bt" @click="uploadFile">上传</Button>
 				<Icon v-show="dataFile!==null" type="checkmark-circled" class="icon"></Icon>
 			</div>
-			<Button type="primary" class="add-data" @click="toAddData">确定</Button>
+			<Button type="primary" class="add-data my-bt" @click="toAddData">确定</Button>
 		</div>
 	</section>
 </template>
@@ -86,41 +86,43 @@
 </script>
 
 <style scoped>
-	.title {
-		border-bottom: 2px solid #c3c3c3;
-    	padding: 0 0 5px 10px;
-	}
 	.info {
-		width: 400px;
-	    padding: 50px;
-	    margin: auto;
-	    margin-top: 30px;
-	    margin-bottom: 31px;
+		width: 700px;
+		height: 350px;
+	    padding: 30px 40px;
+	    margin: 50px 0 0 15%;
 	    box-shadow: 1px 1px 8px 1px #b1b1b1;
 	}
 	.upload-wrap {
 		position: relative;
 	}
 	.icon {
-	    position: absolute;
-	    top: 2px;
-	    right: -22px;
-	    font-size: 25px;
+		position: absolute;
+		top: 5px;
+		right: 170px;
+		font-size: 32px;
 	    color: #3bda3b;
 	}
 	.input-tip {
+		display: inline-block;
+		font-weight: bold;
 	    width: 20%;
 	    line-height: 32px;
-	    font-size: 14px;
+	    font-size: 15px;
+		padding-left: 3px;
+		margin-bottom: 12px;
 	}
 	.input {
-		width: 72%;
+		width: 300px;
+		height: 30px;
+		margin-right: 20px;
 	}
 	.upload-file-bt {
-		width: 25%;
+		width: 80px;
+		vertical-align: top;
 	}
 	.add-data {
-		width: 100%;
-		margin-top: 20px;
+		width: 150px;
+		margin-top: 45px;
 	}
 </style>

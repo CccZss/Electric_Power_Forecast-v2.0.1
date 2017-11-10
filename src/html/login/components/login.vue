@@ -1,21 +1,23 @@
 <template>
 	<center>
-		<div class="form" @keyup.enter="toLogin">
-			<Mytip content="账号" :info="accountInfo">
-				<Input class="input" type="text" v-model="account" placeholder="账号" icon="person"></Input>
-			</Mytip>
-			<Mytip content="密码" :info="passwordInfo">
-				<Input class="input" type="password" v-model="password" placeholder="密码" icon="ios-locked-outline"></Input>
-			</Mytip>
-			<Row :gutter="10">
-		        <Col span="12"><img :src="barcodeURL + '?' + refresh" class="barcode" @click="refreshBarcode"></Col>
-		        <Col span="12">
-		        	<Mytip content="验证码" :info="barcodeInfo">
-		        		<Input class="input" type="text" v-model="barcode" placeholder="验证码"></Input>
-		        	</Mytip>
-		        </Col>
-		    </Row>
-			<Button class="login-bt" type="primary" long @click="toLogin" :loading="loadStatu">登陆</Button>
+		<div class="form-wrap">
+			<div class="form" @keyup.enter="toLogin">
+				<Mytip content="账号" :info="accountInfo">
+					<Input class="input" type="text" v-model="account" placeholder="账号" icon="person"></Input>
+				</Mytip>
+				<Mytip content="密码" :info="passwordInfo">
+					<Input class="input" type="password" v-model="password" placeholder="密码" icon="ios-locked-outline"></Input>
+				</Mytip>
+				<Row :gutter="10">
+					<Col span="12"><img :src="barcodeURL + '?' + refresh" class="barcode" @click="refreshBarcode"></Col>
+					<Col span="12">
+						<Mytip content="验证码" :info="barcodeInfo">
+							<Input class="input" type="text" v-model="barcode" placeholder="验证码"></Input>
+						</Mytip>
+					</Col>
+				</Row>
+				<Button class="login-bt" type="primary" long @click="toLogin" :loading="loadStatu">登录</Button>
+			</div>
 		</div>
 	</center>
 </template>
@@ -104,15 +106,36 @@
 
 <style scoped>
 	.form {
-		position: relative;
-	    top: 250px;
-	    width: 25%;
+	    width: 70%;
 	    min-width: 350px;
 	    padding: 30px;
 	    border-radius: 3px;
+		border: 2px solid rgba(255, 255, 255, 0.81);
 	    box-sizing: border-box;
-	    background-color: rgba(202, 226, 255, 0.76);
-	    /*background-color: rgba(230, 237, 247, 0.76);*/
+	    background-color: rgba(232, 228, 228, 0.6);
+		background-size: cover;
+	}
+	.form-wrap{
+		position: relative;
+		top: 250px;
+		width: 34%;
+	    min-width: 430px;
+		height: 372px;
+		border: 5px solid rgba(255, 255, 255, 0.81);
+		border-radius: 5px;
+		padding-top: 50px;
+	}
+	.form::before {
+		content: '';
+		position: absolute;
+		left: -50%;
+		top: -120px;
+		display: block;
+		width: 200%;
+		height: 100px;
+		background-image: url(../images/name.png);
+		background-repeat: no-repeat;
+		background-position: center center;
 	}
 	.input, .login-bt {
 		margin: 0 0 20px 0;

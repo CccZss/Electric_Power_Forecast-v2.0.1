@@ -6,7 +6,7 @@ const state = {
     defaultDataId: undefined,
     defaultDataName: undefined,
     defaultMonth: undefined,
-    defaultAlgorithm: [],
+    defaultAlgorithm: undefined,  // {gruop: [], single:[]}
 
     allDataList: [],
     allAlgorithmList: [],
@@ -112,8 +112,8 @@ const actions = {
 
             context.commit(types.mutations.setInfo,{
                 allAlgorithmList: {
-                    group: ['gggg'],
-                    single: ['aaaa', 'bbbb', 'cccc', 'dddd', 'eeee']
+                    group: ['Mix'],
+                    single: ['AdaBoost', 'CART', 'Extratrees', 'GBRT', 'Lasso', 'RF', 'Xgboost']
                 }
             })
             resolve({
@@ -290,15 +290,41 @@ const actions = {
         })
     },
 
+    [types.actions.downloadDataById]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            console.log(data)
+            resolve({
+                state: true,
+                info: 'success',
+                url: 'http://www.baidu.com'                
+            })
+
+            /*myAxios({
+                method: 'POST',
+                url: 'download/dataSet',
+                data: data
+            }).then(function(res){
+                if(res.data.state.toString()==="0"){
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo,
+                        url: res.data.data.url
+                    })
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo
+                    })
+                }
+            }).catch(function(err){
+                reject(err)
+            })*/
+        })
+    },
+
     [types.actions.setDefault]: (context, data) => {
         return new Promise((resolve, reject) => {
             console.log(data)
-            context.commit(types.mutations.setInfo,{
-                defaultDataId: data.dataSetId,
-                defaultDataName: "数据集_2017-10-26:17:18:3",
-                defaultMonth: data.month,
-                defaultAlgorithm: data.algorithm
-            })
             resolve({
                 state: true,
                 info: 'success'
@@ -340,8 +366,8 @@ const actions = {
                 dataSetId: 1,
                 dataSetName: "数据集_2017-10-26:17:18:3",
                 algorithm: {
-                    group: ['gggg'],
-                    single: ['aaaa', 'cccc']
+                    group: ['Mix'],
+                    single: ['CART', 'GBRT']
                 }
             }
             context.commit(types.mutations.setInfo,{
@@ -382,6 +408,140 @@ const actions = {
         })
     },
 
+    [types.actions.setDefaultAlgorithm]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            console.log(data)
+            resolve({
+                state: true,
+                info: 'success'
+            })
+
+            /*myAxios({
+                method: 'GET',
+                url: 'user/setDefaultAlgorithm',
+                data: data
+            }).then(function(res){
+                if(res.data.state.toString()==="0"){
+                    context.commit(types.mutations.setInfo,{
+                        defaultAlgorithm: res.data.data.algorithm
+                    })
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })*/
+        })
+    },
+
+    [types.actions.checkPredictionState]: (context) => {
+        return new Promise((resolve, reject) => {
+            if(true){
+                //Number(new Date().getTime()) % 2
+                resolve({
+                    state: true,
+                    info: 'success'
+                })
+            }else {
+                resolve({
+                    state: false,
+                    info: 'fauise'
+                })
+            }
+            /*myAxios({
+                method: 'GET',
+                url: 'forecast/state',
+            }).then(function(res){
+                if(res.data.state.toString()==="0"){
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })*/
+        })
+    },
+
+    [types.actions.hasPredictionResult]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            console.log(data)
+            if(Number(new Date().getTime()) % 2){
+                resolve({
+                    state: true,
+                    info: '已有部分预测数据，是否利用已有结果'
+                })
+            }else {
+                resolve({
+                    state: false,
+                    info: '当前无预测数据'
+                })
+            }
+            /*myAxios({
+                method: 'POST',
+                url: 'forecast/before',
+                data: data
+            }).then(function(res){
+                if(res.data.state.toString()==="0"){
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo
+                    })
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo
+                    })
+                }
+            }).catch(function(err){
+                reject(err)
+            })*/
+        })
+    },
+
+    [types.actions.prediction]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            console.log(data)
+            
+            resolve({
+                state: true,
+                info: 'success'
+            })
+        
+            /*myAxios({
+                method: 'POST',
+                url: 'forecast/do',
+                data: data
+            }).then(function(res){
+                if(res.data.state.toString()==="0"){
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo
+                    })
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo
+                    })
+                }
+            }).catch(function(err){
+                reject(err)
+            })*/
+        })
+    },
 }
 
 const mutations = {

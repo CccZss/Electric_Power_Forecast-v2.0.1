@@ -2,6 +2,8 @@
 	<section class="wrap">
 		<span class="data-name">{{dataName}}</span>
         <span @click="toDeleteData"><Icon type="trash-a" class="delete-bt"></Icon></span>
+		<br/>
+        <Button class="data-info-bt" type="primary" @click="toDownData">下载数据</Button>
         <Button class="data-info-bt" type="primary" @click="toGetDataInfo">查看数据</Button>
 	</section>
 </template>
@@ -40,6 +42,20 @@
 				}).catch((err)=>{
 	                this.$Message.error(err)
 				})
+			},
+
+			toDownData() {
+				this.downloadDataById({
+					dataSetId: this.id
+				}).then((data)=>{
+					if(data.state){
+	                    window.open(data.url, '_blank')
+	                }else{
+	                    this.$Message.error(data.info)
+	                }
+				}).catch((err)=>{
+	                this.$Message.error(err)
+				})
 			}
 		}
 	}
@@ -58,8 +74,8 @@
 		font-size: 18px;
 	}
 	.data-info-bt {
-		margin-top: 10px;
-		width: 100%;
+		margin: 20px 10px 0 0;
+		float: right;
 	}
 	.delete-bt {
 		position: absolute;

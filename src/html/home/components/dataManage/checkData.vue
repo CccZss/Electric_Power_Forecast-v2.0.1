@@ -1,8 +1,8 @@
 <!-- 列表，删除，查看详细 -->
 <template>
 	<section class="check-data-wrap">
-		<h1 class="title">查看数据</h1>
-		<div v-for="item in allDatas" class="all-datas">
+		<p class="title">查看数据</p>
+		<div v-for="item in allDatas" class="all-datas" :key="item.id">
 			<dataItem
 				:dataName = "item.dataName"
 				:id = "item.id"
@@ -76,15 +76,13 @@
 </script>
 
 <style scoped>
-	.title {
-		border-bottom: 2px solid #c3c3c3;
-    	padding: 0 0 5px 10px;
-	}
 	.check-data-wrap {
 		overflow: hidden;
 	}
 	.all-datas {
-		margin: 20px 10px;
+		width: 96%;
+		margin: auto;
+		margin-top: 40px;
 	}
 	.data-info-wrap {
 		width: 100%;

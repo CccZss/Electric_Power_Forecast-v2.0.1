@@ -1,13 +1,12 @@
 <template>
 	<section class="nav-wrap">
 		<div class="top">
-			<a class="logo" href="./home.html#/homepage">
-			</a>
+			<span class="logo"@click="toHome"></span>
 		    <div class="user">
 		    	<strong>{{user.userName}}</strong>
 		    </div>
 		</div>
-		<Menu class="meun" mode="horizontal" theme="light" active-name="homepage" @on-select="changeMenu">
+		<Menu class="meun" ref="myNav" mode="horizontal" theme="light" :active-name="activeName" @on-select="changeMenu">
 	        <MenuItem name="homepage">
 	            <Icon type="ios-paper"></Icon>
 	            首页
@@ -19,7 +18,7 @@
 	            </template>
 	            <MenuItem name="inputData">导入数据</MenuItem>
                 <MenuItem name="checkData">查看数据</MenuItem>
-                <MenuItem name="setData">设置默认值</MenuItem>
+                <MenuItem name="setDefault">设置默认值</MenuItem>
 	        </Submenu>
 	        <Submenu name="prediction">
 	            <template slot="title">
@@ -35,8 +34,8 @@
 	                可视化
 	            </template>
                 <MenuItem name="electricity">用电量</MenuItem>
-                <MenuItem name="deviation">误差预测</MenuItem>
-                 <MenuGroup title="暂无数据可以可视化">
+                <MenuItem name="deviation">预测误差</MenuItem>
+                 <!-- <MenuGroup title="暂无数据可以可视化"> -->
 	            </MenuGroup>
 	        </Submenu>
 	        <Submenu name="user-manage">
@@ -58,7 +57,7 @@
 	export default { 
 		data () {
 			return {
-
+				activeName: 'homepage'
 			}
 		},
 		computed: {
@@ -90,6 +89,12 @@
 						}*/
 					})
 				}
+			},
+
+			toHome() {
+				/* this.$router.push({
+					name: 'homepage',
+				}) */
 			},
 
 			toExit () {
@@ -162,7 +167,7 @@
 <style>
 	/* 整体导航栏颜色 */
 	.ivu-menu-light {
-	    background: #3478b5;
+	    background: #2d8cf0;
     	/*border-top: 1px solid #3478b5;*/
 	}
 	/* 选中*/
@@ -182,5 +187,8 @@
 	.ivu-menu-horizontal {
 	    height: 42px;
 	    line-height: 42px;
+	}
+	.ivu-menu-horizontal.ivu-menu-light:after {
+		content: none;
 	}
 </style>

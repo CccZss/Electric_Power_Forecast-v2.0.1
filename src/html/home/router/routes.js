@@ -29,9 +29,9 @@ const routes = [
         component: require('../components/dataManage/checkData.vue')
       },
       {
-        path: 'setData',
-        name: 'setData',
-        component: require('../components/dataManage/setData.vue')
+        path: 'setDefault',
+        name: 'setDefault',
+        component: require('../components/dataManage/setDefault.vue')
       },
     ]
   },

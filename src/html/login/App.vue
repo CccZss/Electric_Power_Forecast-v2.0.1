@@ -32,7 +32,7 @@ export default {
 	#app{
 		padding: 0.1px;
    	 	height: 100%;
-   	 	background-color: rgba(69, 142, 230, 0.68);
+   	 	/* background-color: rgba(69, 142, 230, 0.68); */
    	 	/*background-color: #2f81d4;*/
 	}
 	.bg {
@@ -42,7 +42,7 @@ export default {
 		top: 0;
 		left: 0;
 		z-index: -1;
-		background-image: url('./images/background.jpg');
+		background-image: url('./images/background.png');
    	 	background-size: cover;
    	 	background-repeat: no-repeat;
         background-position: center;

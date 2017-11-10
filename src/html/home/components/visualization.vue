@@ -1,13 +1,11 @@
 <template>
-	<section class="wrap">
+	<section class="page-wrap">
 		<router-view class="main"></router-view>
 	</section>
 </template>
 
 <style scoped>
-	.wrap {
-		background-color: white;
-		padding: 20px 20px;
-		margin: auto;
+	.page-wrap {
+		background-image: none;
 	}
 </style>

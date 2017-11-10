@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<h1 class="title">账户管理</h1>
+		<p class="title">账户管理</p>
 		<div class="users">
             <div class="search-wrap" @keyup.enter="search">
                <!--  <Input class="search-input" v-model="searchInfo"  icon="ios-search" placeholder="请输入..."></Input> -->
@@ -254,10 +254,11 @@
 </script>
 
 <style scoped>
-	.title {
-		border-bottom: 2px solid #c3c3c3;
-    	padding: 0 0 5px 10px;
-	}
+    section {
+        height: 100%;
+        background-color: white; 
+        padding-bottom: 50px;
+    }
 	.search-wrap {
 		margin-bottom: 10px;
 		text-align: right;
@@ -266,7 +267,9 @@
 		width: 200px;
 	}
 	.users {
-		margin: 30px 50px;
+        width: 90%;
+        margin: auto;
+		margin-top: 30px;
 	}
 	.update-input {
 		display: inline-block;

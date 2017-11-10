@@ -49,7 +49,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
+    /* new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
       inject: true,
@@ -62,7 +62,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
-    }),
+    }), */
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -118,3 +118,30 @@ if (config.build.bundleAnalyzerReport) {
 }
 
 module.exports = webpackConfig
+
+
+var pages = utils.getEntries('./src/html/**/*.html');
+
+for (var pathname in pages) {
+  // 配置生成的html文件，定义路径等
+  var conf = {
+    favicon: "favicon.ico",
+    filename: pathname + '.html',
+    template:  pages[pathname][1],   // 模板路径
+    inject: true,              // js插入位置
+    minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
+    // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+    chunksSortMode: 'dependency',
+  };
+  if (pathname in module.exports.entry) {    //为页面导入所需的依赖
+    conf.chunks = ['vendor','manifest', pathname];
+    conf.hash = false;
+  }
+  module.exports.plugins.push(new HtmlWebpackPlugin(conf));
+}

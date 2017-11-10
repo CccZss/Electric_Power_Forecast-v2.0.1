@@ -1,39 +1,30 @@
 <template>
 	<section>
-		<h1 class="title">设置默认值</h1>
-		<div class="wrap">
+		<p class="title">设置默认值</p>
+		<div class="info-wrap blue-bar">
 			<section>
-				<span class="tip">默认数据集</span>
+				<span class="tip">默认数据集：</span>
 				<Select v-model="defaultDataId" style="width:200px">
 			        <Option v-for="item in allDatas" :value="item.id" :key="item.id">{{ item.dataName }}</Option>
 			    </Select>
 			</section>
 			<section>
-				<span class="tip">默认月份</span>
+				<span class="tip">默认月份：</span>
 				<InputNumber :max="12" :min="1" v-model="defaultMonth"></InputNumber>
 			</section>
-			<section>
-				<span class="tip">默认算法</span><br/>
-				<div class="algorithm-wrap">
-					<p>组合算法</p>
-					<span class="algorithm-item" v-for="(item, index) in groupAlgorithm" :key="index">
-						<Checkbox v-model="item.value">{{item.name}}</Checkbox>
-					</span>
-				</div>
-				<div class="algorithm-wrap">
-					<p>单算法</p>
-					<span class="algorithm-item" v-for="(item, index) in singleAlgorithm" :key="index">
-						<Checkbox v-model="item.value">{{item.name}}</Checkbox>
-					</span>
-				</div>
-			</section>
-        	<Button class="set-default-bt" type="primary" @click="submitDefault">确定</Button>
-
+			<span class="tip">默认算法：</span><br/>
+			<set-algorithm class="algorathm"
+				:groupAlgorithm = "groupAlgorithm"
+				:singleAlgorithm = "singleAlgorithm"
+				@on-change = "setDefaultAlgorithm"
+			></set-algorithm>
+        	<Button class="set-default-bt my-bt" type="primary" @click="submitDefault">确定</Button>
 		</div>
 	</section>
 </template>
 
 <script>
+	import setAlgorithm from './setAlgorithm'
 	import {mapState, mapActions} from 'vuex';
 	import data from  '../../store/types/data'
 	export default {
@@ -41,6 +32,7 @@
 			return {
 				defaultDataId: undefined,
 				defaultMonth: 1,
+				defaultAlgorithm: [],
 				groupAlgorithm: [],
 				singleAlgorithm: [],
 				allDatas: [],
@@ -53,6 +45,9 @@
                 }
             }),
 		},
+		components: {
+			'set-algorithm' : setAlgorithm
+		},
 		methods: {
 			...mapActions(data.actions),
 
@@ -60,7 +55,8 @@
 				this.getDefault().then((data)=>{
 					if(data.state){
 	                    this.defaultDataId = this.data.defaultDataId
-		                this.defaultMonth = this.data.defaultMonth
+						this.defaultMonth = this.data.defaultMonth
+						this.defaultAlgorithm = this.data.defaultAlgorithm.group.concat(this.data.defaultAlgorithm.single)
 		                
 		                var arr = this.data.defaultAlgorithm;
 		                arr.group.forEach((item)=>{
@@ -85,22 +81,15 @@
 				})
 			},
 
-			submitDefault() {
-				var algorithm = [];
-				this.groupAlgorithm.forEach(item => {
-					if(item.value) {
-						algorithm.push(item.name)
-					}
-				})
-				this.singleAlgorithm.forEach(item => {
-					if(item.value) {
-						algorithm.push(item.name)
-					}
-				})
+			setDefaultAlgorithm(arr) {
+				this.defaultAlgorithm = arr
+			},
+
+			submitDefault() {	
 				this.setDefault({
 					dataSetId: this.defaultDataId,
 					month: this.defaultMonth,
-					algorithm: algorithm
+					algorithm: this.defaultAlgorithm
 				}).then((data)=>{
 					if(data.state){
 	                    this.$Message.success(data.info)
@@ -157,16 +146,15 @@
 </script>
 
 <style scoped>
-	.title {
-		border-bottom: 2px solid #c3c3c3;
-    	padding: 0 0 5px 10px;
+	.info-wrap {
+		width: 700px;
+		height: 500px;
+	    padding: 30px 40px;
+	    margin: 50px 0 0 15%;
+	    box-shadow: 1px 1px 8px 1px #b1b1b1;
 	}
-	.wrap {
-		margin: 30px 40px;
-		overflow: hidden
-	}
-	.wrap>section {
-		margin-bottom: 40px;
+	.info-wrap > section {
+		margin-bottom: 30px;
 	}
 	.tip {
 		display: inline-block;
@@ -176,21 +164,13 @@
 		margin-bottom: 10px;
 		vertical-align: middle;
 	}
-	.algorithm-wrap {
-		margin: 10px 0 10px 50px;
-		/*border-bottom: 1px solid black;*/
-		padding-bottom: 10px;
-	}
-	.algorithm-wrap p {
-		font-size: 15px;
-		color: #00adfb;
-		font-weight: bold;
-		margin: 0 0 10px -30px;
-	}
-	.algorithm-item {
-		margin-right: 8px;
+	.algorathm {
+		position: relative;
+		left: 6rem;
+		top: -35px;
 	}
 	.set-default-bt {
 		float: right;
+		width: 100px;
 	}
 </style>

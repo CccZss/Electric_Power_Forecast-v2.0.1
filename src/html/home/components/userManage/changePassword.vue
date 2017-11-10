@@ -1,10 +1,16 @@
 <template>
 	<section>
-		<h1 class="title">修改密码</h1>
-		<div class="info">
-			<Input class="input" type="text" v-model="oldPassword" placeholder="旧密码"></Input> 
-			<Input class="input" type="text" v-model="newPassword" placeholder="新密码"></Input> 
-			<Button type="primary" class="change-bt" @click="changePassword">确定修改</Button>
+		<p class="title">修改密码</p>
+		<div class="info blue-bar">
+			<div>
+				<span class="tip">旧密码：</span>
+				<Input class="input" type="text" v-model="oldPassword" placeholder="旧密码"></Input> 
+			</div>
+			<div>
+				<span class="tip">新密码：</span>
+				<Input class="input" type="text" v-model="newPassword" placeholder="新密码"></Input> 
+			</div>
+			<Button type="primary" class="change-bt my-bt" @click="changePassword">确定修改</Button>
 		</div>
 	</section>
 </template>
@@ -47,24 +53,24 @@
 </script>
 
 <style scoped>
-	.title {
-		border-bottom: 2px solid #c3c3c3;
-    	padding: 0 0 5px 10px;
-	}
 	.info {
-		width: 400px;
-	    padding: 50px;
-	    margin: auto;
-	    margin-top: 30px;
-	    margin-bottom: 31px;
+		width: 700px;
+		height: 350px;
+	    padding: 30px 40px;
+	    margin: 50px 0 0 15%;
 	    box-shadow: 1px 1px 8px 1px #b1b1b1;
 	}
+	.info > div {
+		margin-bottom: 20px;
+	}
 	.input {
-		width: 100%;
+		width: 300px;
 		margin-bottom: 20px;
 	}
 	.change-bt {
-		width: 100%;
+		float: right;
+		margin-right: 30px;
+		width: 140px;
 	}
 	.text {
 		display: inline-block;
@@ -72,5 +78,11 @@
 		padding-right: 10px;
 		text-align: right;
 		font-size: 16px;
+	}
+	.tip {
+		display: inline-block;
+		font-size: 20px;
+		width: 100px;
+		vertical-align: top;
 	}
 </style>
