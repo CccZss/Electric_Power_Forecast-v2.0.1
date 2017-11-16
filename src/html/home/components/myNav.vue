@@ -8,12 +8,12 @@
 		</div>
 		<Menu class="meun" ref="myNav" mode="horizontal" theme="light" :active-name="activeName" @on-select="changeMenu">
 	        <MenuItem name="homepage">
-	            <Icon type="ios-paper"></Icon>
+				<Icon type="ios-home"></Icon>
 	            首页
 	        </MenuItem>
 	        <Submenu name="data-manage">
 	        	<template slot="title">
-		            <Icon type="ios-people"></Icon>
+		            <Icon type="ios-folder"></Icon>
 		            数据管理
 	            </template>
 	            <MenuItem name="inputData">导入数据</MenuItem>
@@ -22,7 +22,7 @@
 	        </Submenu>
 	        <Submenu name="prediction">
 	            <template slot="title">
-	                <Icon type="stats-bars"></Icon>
+	                <Icon type="ios-loop-strong"></Icon>
 	                预测
 	            </template>
                 <MenuItem name="selectAlgorithm">选择算法</MenuItem>
@@ -40,7 +40,7 @@
 	        </Submenu>
 	        <Submenu name="user-manage">
 	            <template slot="title">
-	                <Icon type="stats-bars"></Icon>
+	                <Icon type="ios-gear"></Icon>
 	                用户管理
 	            </template>
                 <MenuItem name="changePassword">修改密码</MenuItem>

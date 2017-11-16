@@ -28,11 +28,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        '/anywork': {
-            target: 'http://10.21.48.11:8080',
+        '/ElecForecast': {
+            target: 'http://192.168.199.147:8000',
             changeOrigin: true,
             pathRewrite: {
-                '^/anywork': '/anywork'
+                '^/ElecForecast': '/ElecForecast'
             }
         }
     },

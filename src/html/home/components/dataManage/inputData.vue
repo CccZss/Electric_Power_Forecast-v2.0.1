@@ -8,7 +8,7 @@
 				<Button type="primary" class="upload-file-bt my-bt" @click="uploadFile">上传</Button>
 				<Icon v-show="dataFile!==null" type="checkmark-circled" class="icon"></Icon>
 			</div>
-			<Button type="primary" class="add-data my-bt" @click="toAddData">确定</Button>
+			<Button type="primary" class="add-data my-bt" @click="toAddData" :loading="loading">确定</Button>
 		</div>
 	</section>
 </template>
@@ -20,7 +20,8 @@
 		data () {
 			return {
 				dataName: '',
-				dataFile : null
+				dataFile : null,
+				loading: false
 			}
 		},
 		methods: {
@@ -63,6 +64,7 @@
 					var data = new FormData()
 					data.append('dataName', this.dataName)
 					data.append('file', this.dataFile)
+					this.loading = true
 					this.addData(data).then((data) => {
 						if(data.state){
 							this.$Message.success(data.info)		
@@ -70,6 +72,7 @@
 							this.$Message.error(data.info)
 						}
 						this.dataFile = null
+						this.loading = false
 						this.updateDataName()
 					}).catch((err) => {
 						this.$Message.error(err)

@@ -17,7 +17,7 @@ const actions = {
                 url: 'user/login',
                 data: data
             }).then(function(res){
-                if(res.data.state.toString()==="1"){
+                if(res.data.state.toString()==="0"){
                     context.commit(types.mutations.setInfo,res.data.data)
                     resolve({
                         state: true,

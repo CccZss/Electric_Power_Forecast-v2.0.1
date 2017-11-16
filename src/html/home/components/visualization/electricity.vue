@@ -12,11 +12,14 @@
 				<Button class="download-bt" type="primary" @click="toDownElecData">导出数据</Button>
 			</div>
 			<line-chart class="chart" 
-				:data="datas.y" 
+				:yOriginal="datas['y_original']" 
+				:yForecast="datas['y_forecast']"
+				:yScatter="datas['y_scatter']"
 				:xAxisData="datas.x" 
+				:legend="datas.legend"
+				:startValue="datas.startValue"
 				:firstPredictMonth="datas.firstPredictMonth" 
-				:min="datas.min"
-				:max="datas.max" />
+				:error="datas.error" />
 		</section>
 	</section>
 </template>
@@ -31,11 +34,14 @@
 		data () {
 			return {
 				datas:  {
-					y: [],
+					y_original: [],
+					y_forecast: [],
+					y_scatter: [],
 					x: [],
+					legend: {},
+					startValue: '',
 					firstPredictMonth: '',
-					min: 0,
-					max: 0
+					error: 0
 				},
 				currentUser: [],
 				allUsers: [],
@@ -67,26 +73,14 @@
 			},
 
 			userChange(value) {
-
-				this.getElecVisualData({
-					customer: value[value.length - 1],
-					algorithm: this.algorithmName,
-					chart: 'line'
-				}).then((data)=>{
-					if(data.state){
-						this.datas = this.visual.chartDdata.line
-						this.$Message.success(data.info)
-					}else{
-						this.$Message.error(data.info)
-					}
-				}).catch((err)=>{
-					this.$Message.error(err)
-				})
+				this.getCurrentUserAlgorithm(value)
 			},
 
 			selectChange() {
+				
 				this.getElecVisualData({
 					customer: this.currentUser[this.currentUser.length - 1],
+					dataSetName: this.currentUser[0],
 					algorithm: this.algorithmName,
 					chart: 'line'
 				}).then((data)=>{
@@ -99,11 +93,13 @@
 				}).catch((err)=>{
 					this.$Message.error(err)
 				})
+
 			},
 
 			toDownElecData() {
 				this.downloadElecData({
 					customer: this.currentUser[this.currentUser.length - 1],
+					dataSetName: this.currentUser[0],
 					algorithm: this.algorithmName
 				}).then((data)=>{
 					if(data.state){
@@ -113,6 +109,45 @@
 	                }
 				}).catch((err)=>{
 	                this.$Message.error(err)
+				})
+			},
+
+			getCurrentUserAlgorithm(currentUser) {
+				// 获取当前用户算法名
+				this.getAlgorithmList({
+					customer: currentUser[1],
+					dataSetName: currentUser[0]
+				}).then((data)=>{
+					if(data.state){
+						console.log(this)
+						var groupAlgorithm = this.visual.algorithmList.group
+						var singleAlgorithm = this.visual.algorithmList.single
+						
+						this.algorithmList = groupAlgorithm.concat(singleAlgorithm)
+						this.algorithmName = this.algorithmList[0]
+
+						// 获取此用户与该用户对应算法中的一种算法的可视化数据
+						this.getElecVisualData({
+							customer: currentUser[currentUser.length - 1],
+							dataSetName: currentUser[0],
+							algorithm: this.algorithmName,
+							chart: 'line'
+						}).then((data)=>{
+							if(data.state){
+								this.datas = this.visual.chartDdata.line
+								this.$Message.success(data.info)
+							}else{
+								this.$Message.error(data.info)
+							}
+						}).catch((err)=>{
+							this.$Message.error(err)
+						})
+					
+					}else{
+						this.$Message.error(data.info)
+					}
+				}).catch((err)=>{
+					this.$Message.error(err)
 				})
 			},
 
@@ -129,44 +164,19 @@
 								children: []
 							}
 							currentUser.push(item)
-							for(var item1 in users[item]) {
-								var obj1 = {
-									value: item1,
-									label: item1,
-									children: []
+							for(var item2 in users[item]) {
+								var obj2 = {
+									value: users[item][item2],
+									label: users[item][item2],
 								}
-								currentUser.push(item1)
-								for(var item2 in users[item][item1]) {
-									var obj2 = {
-										value: users[item][item1][item2],
-										label: users[item][item1][item2],
-									}
-									currentUser.push(users[item][item1][item2])
-									obj1.children.push(obj2)
-								}
-								obj.children.push(obj1)
+								obj.children.push(obj2)
+								currentUser.push(users[item][item2])
 							}
 							allUsers.push(obj)
-
-
-							// 获取所有算法名
-							this.getAllAlgorithm().then((data)=>{
-								if(data.state){
-									var groupAlgorithm = this.data.allAlgorithmList.group
-									var singleAlgorithm = this.data.allAlgorithmList.single
-									
-									this.algorithmList = groupAlgorithm.concat(singleAlgorithm)
-									this.algorithmName = this.algorithmList[0]
-								
-								}else{
-									this.$Message.error(data.info)
-								}
-							}).catch((err)=>{
-								this.$Message.error(err)
-							})
 						}
 						this.allUsers = allUsers
-						this.currentUser = currentUser.slice(0,3)
+						this.currentUser = currentUser.slice(0,2)
+						this.getCurrentUserAlgorithm(currentUser)
 						
 					}else{
 						this.$Message.error(data.info)

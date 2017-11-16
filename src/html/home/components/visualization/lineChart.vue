@@ -9,28 +9,41 @@
 
     export default {
     	props: {
-            data: {
-                default: {}
-            }, 
+            yOriginal: {
+			}, 
+			yForecast: {
+			}, 
+			yScatter: {
+			},
             xAxisData : {
-                default: {}
-            }, 
+			}, 
+			legend: {
+			},
+			startValue: {
+				default: ''
+			},
             firstPredictMonth: {
                 default: ''
 			},
-			min: {
+			error: {
 				default: 0
 			},
-			max: {
-				default: 0
-			}
         },
 		data () {
 			return {
 				lineEchart: null,
+				yTopError: [],
+				yDownError: [],
 			}
 		},
 		computed: {
+			legendList() {
+				var arr = []
+				for(var name in this.legend) {
+					arr.push(this.legend[name])
+				}
+				return arr
+			},
 			option () {
 				return {
                     /* title: {
@@ -46,7 +59,10 @@
                                 backgroundColor: '#6a7985'
                             }
                         }
-				    },
+					},
+					legend: {
+						data: this.legendList
+					},
 				    grid:{
 				        left: '3%',
 				        right: '4%',
@@ -55,14 +71,12 @@
 				    },
 			        dataZoom: [
 					  	{
-                            type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
-                            start: 0,      // 左边在 0% 的位置。
-                            end: 100         // 右边在 100% 的位置。
+							type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
+							startValue: this.startValue
                         },
 			            {   // 这个dataZoom组件，也控制x轴。
                             type: 'inside', // 这个 dataZoom 组件是 inside 型 dataZoom 组件
-                            start: 0,      // 左边在 0% 的位置。
-                            end: 100         // 右边在 100% 的位置。
+                            startValue: this.startValue
                         },
                     ],
                     toolbox: {
@@ -88,10 +102,10 @@
 				    ],
 				    series : [
 				        {
-				            name:'counts',
+				            name: this.legend.original,
 				            type:'line',
 				            barWidth: '60%',
-				            data: this.data,
+				            data: this.yOriginal,
                             smooth: false,
                             markLine : {
                                 lineStyle: {
@@ -104,17 +118,36 @@
 										name: '起始预测时间',
 										xAxis: this.firstPredictMonth
 									},
-									{
-										name: 'max',
-										yAxis: this.max
-									},
-									{
-										name: 'min',
-										yAxis: this.min
-									}
                                 ]
                             }
-				        }
+						},
+						{
+				            name: this.legend.forecast,
+				            type:'line',
+				            barWidth: '60%',
+				            data: this.yForecast,
+                            smooth: false,
+						},
+						{
+				            name: this.legend.max,
+				            type:'line',
+				            barWidth: '60%',
+				            data: this.yTopError,
+                            smooth: true,
+						},
+						{
+				            name: this.legend.min,
+				            type:'line',
+				            barWidth: '60%',
+				            data: this.yDownError,
+                            smooth: true,
+				        },
+						{
+							name: this.legend.test,
+							type: 'scatter',
+							data: this.yScatter
+
+						}
 				    ]
 				}
 			}
@@ -125,7 +158,20 @@
 			},
 		},
 		watch: {
-			data () {
+			yOriginal () {
+				var topError = []
+				var downError = []
+				this.yOriginal.forEach((item, i) => {
+					if(item) {
+						topError.push(item * (1 + Number(this.error)))
+						downError.push(item * (1 - Number(this.error)))
+					}else{
+						topError.push(this.yForecast[i] * (1 + Number(this.error)))
+						downError.push(this.yForecast[i] * (1 - Number(this.error)))
+					}
+				})
+				this.yTopError = topError;
+				this.yDownError = downError;
 				this.lineEchart.setOption(this.option)
 			},
 		},
@@ -134,10 +180,11 @@
   		},
 		mounted() {
 	      	this.$nextTick(function() {
-		         this.lineEchart = echarts.init(document.getElementById('line'), theme)
+		        this.lineEchart = echarts.init(document.getElementById('line'), theme)
     			this.lineEchart.setOption(this.option)
     			window.addEventListener('resize', this.handleResize)
-	      	})
+			})
+			
 	    }	
 	}
 </script>

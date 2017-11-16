@@ -18,12 +18,13 @@ const actions = {
     [types.actions.addData]: (context, data) => {
         return new Promise((resolve, reject) => {
             console.log(data)
-            resolve({
+            
+            /*resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: 'data/import',
                 data: data
@@ -41,7 +42,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
@@ -49,7 +50,7 @@ const actions = {
         //context: commit,dispatch,getters,state
         return new Promise((resolve, reject) => {
 
-            context.commit(types.mutations.setInfo,{
+            /*context.commit(types.mutations.setInfo,{
                 allDataList : [
                     {
                         id: 1, 
@@ -80,9 +81,9 @@ const actions = {
             resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'GET',
                 url: 'data/all',
             }).then(function(res){
@@ -102,7 +103,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
@@ -110,7 +111,7 @@ const actions = {
         //context: commit,dispatch,getters,state
         return new Promise((resolve, reject) => {
 
-            context.commit(types.mutations.setInfo,{
+            /* context.commit(types.mutations.setInfo,{
                 allAlgorithmList: {
                     group: ['Mix'],
                     single: ['AdaBoost', 'CART', 'Extratrees', 'GBRT', 'Lasso', 'RF', 'Xgboost']
@@ -119,15 +120,15 @@ const actions = {
             resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'GET',
-                url: 'data/allAlgorithm',
+                url: 'forecast/allAlgorithm',
             }).then(function(res){
                 if(res.data.state.toString()==="0"){
                     context.commit(types.mutations.setInfo,{
-                        allAlgorithmList: res.data.data
+                        allAlgorithmList: res.data.data.algorithm
                     })
                     resolve({
                         state: true,
@@ -141,14 +142,14 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.getDataInfo]: (context, data) => {
         return new Promise((resolve, reject) => {
 
-            var info = [
+            /* var info = [
                 ['name', 'age'],
                 ['aaa','bbb','ccc'],
                 [10,14,15]
@@ -178,9 +179,9 @@ const actions = {
             resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: 'data/single',
                 data: data
@@ -191,7 +192,8 @@ const actions = {
                     info[0].forEach((item, index)=>{
                         column.push({
                             title: item,
-                            key: index
+                            key: index,
+                            width: 200
                         })
                     })
                     var columnData = []
@@ -220,7 +222,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
@@ -243,7 +245,7 @@ const actions = {
     [types.actions.deleteDataById]: (context, data) => {
         return new Promise((resolve, reject) => {
 
-            var allDataList = context.state.allDataList;
+            /* var allDataList = context.state.allDataList;
             for(var i=0; i<allDataList.length; i++) {
                 if(allDataList[i].id === data.id) {
                     allDataList.splice(i, 1)
@@ -256,17 +258,17 @@ const actions = {
             resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
-                url: 'data/single',
+                url: 'data/delete',
                 data: data
             }).then(function(res){
                 if(res.data.state.toString()==="0"){
                     var allDataList = context.state.allDataList;
                     for(var i=0; i<allDataList.length; i++) {
-                        if(allDataList[i].id === res.data.state.id) {
+                        if(allDataList[i].id === res.data.data.id) {
                             allDataList.splice(i, 1)
                             break
                         }
@@ -286,20 +288,20 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.downloadDataById]: (context, data) => {
         return new Promise((resolve, reject) => {
             console.log(data)
-            resolve({
+            /* resolve({
                 state: true,
                 info: 'success',
                 url: 'http://www.baidu.com'                
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: 'download/dataSet',
                 data: data
@@ -318,26 +320,27 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.setDefault]: (context, data) => {
         return new Promise((resolve, reject) => {
             console.log(data)
-            resolve({
+
+            /* resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: 'user/setDefault',
                 data: data
             }).then(function(res){
                 if(res.data.state.toString()==="0"){
                     context.commit(types.mutations.setInfo,{
-                        defaultDataId: res.data.data.dataSetId
+                        defaultDataId: res.data.data.dataSetId,
                         defaultDataName: res.data.data.dataSetName,
                         defaultMonth: res.data.data.month,
                         defaultAlgorithm: res.data.data.algorithm
@@ -354,14 +357,14 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.getDefault]: (context) => {
         return new Promise((resolve, reject) => {
 
-            var info = {
+            /* var info = {
                 month: 8,
                 dataSetId: 1,
                 dataSetName: "数据集_2017-10-26:17:18:3",
@@ -379,15 +382,15 @@ const actions = {
             resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'GET',
-                url: 'data/selectDefault',
+                url: 'user/selectDefault',
             }).then(function(res){
                 if(res.data.state.toString()==="0"){
                     context.commit(types.mutations.setInfo,{
-                        defaultDataId: res.data.data.dataSetId
+                        defaultDataId: res.data.data.dataSetId,
                         defaultDataName: res.data.data.dataSetName,
                         defaultMonth: res.data.data.month,
                         defaultAlgorithm: res.data.data.algorithm
@@ -404,20 +407,21 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.setDefaultAlgorithm]: (context, data) => {
         return new Promise((resolve, reject) => {
             console.log(data)
-            resolve({
+
+            /* resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
-                method: 'GET',
+            myAxios({
+                method: 'POST',
                 url: 'user/setDefaultAlgorithm',
                 data: data
             }).then(function(res){
@@ -437,13 +441,13 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.checkPredictionState]: (context) => {
         return new Promise((resolve, reject) => {
-            if(true){
+            /* if(true){
                 //Number(new Date().getTime()) % 2
                 resolve({
                     state: true,
@@ -454,8 +458,9 @@ const actions = {
                     state: false,
                     info: 'fauise'
                 })
-            }
-            /*myAxios({
+            } */
+
+            myAxios({
                 method: 'GET',
                 url: 'forecast/state',
             }).then(function(res){
@@ -472,14 +477,15 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.hasPredictionResult]: (context, data) => {
         return new Promise((resolve, reject) => {
             console.log(data)
-            if(Number(new Date().getTime()) % 2){
+
+            /* if(Number(new Date().getTime()) % 2){
                 resolve({
                     state: true,
                     info: '已有部分预测数据，是否利用已有结果'
@@ -489,8 +495,9 @@ const actions = {
                     state: false,
                     info: '当前无预测数据'
                 })
-            }
-            /*myAxios({
+            } */
+
+            myAxios({
                 method: 'POST',
                 url: 'forecast/before',
                 data: data
@@ -508,7 +515,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
@@ -516,12 +523,12 @@ const actions = {
         return new Promise((resolve, reject) => {
             console.log(data)
             
-            resolve({
+            /* resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
         
-            /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: 'forecast/do',
                 data: data
@@ -539,7 +546,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 }

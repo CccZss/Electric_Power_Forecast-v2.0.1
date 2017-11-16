@@ -11,7 +11,7 @@
 				:data="datas.y" 
 				:xAxisData="datas.x" 
 				:legend="datas.algorithm"
-				:min="datas.min" />
+				:max="datas.max" />
 		</section>
 	</section>
 </template>
@@ -29,7 +29,7 @@
 					x: [],
 					y: {},
 					algorithm: [],
-					min: 0
+					max: 0
 				},
 				currentUser: [],
 				allUsers: [],
@@ -60,6 +60,7 @@
 			userChange(value) {
 				this.getErrorVisualData({
 					customer: value[value.length - 1],
+					dataSetName: value[0]
 				}).then((data)=>{
 					if(data.state){
 						this.datas = this.visual.chartDdata.bar
@@ -75,6 +76,7 @@
 			toDownErrorData() {
 				this.downloadErrorData({
 					customer: this.currentUser[this.currentUser.length - 1],
+					dataSetName: this.currentUser[0]
 				}).then((data)=>{
 					if(data.state){
 	                    window.open(data.url, '_blank')
@@ -99,27 +101,18 @@
 								children: []
 							}
 							currentUser.push(item)
-							for(var item1 in users[item]) {
-								var obj1 = {
-									value: item1,
-									label: item1,
-									children: []
+							for(var item2 in users[item]) {
+								var obj2 = {
+									value: users[item][item2],
+									label: users[item][item2],
 								}
-								currentUser.push(item1)
-								for(var item2 in users[item][item1]) {
-									var obj2 = {
-										value: users[item][item1][item2],
-										label: users[item][item1][item2],
-									}
-									currentUser.push(users[item][item1][item2])
-									obj1.children.push(obj2)
-								}
-								obj.children.push(obj1)
+								obj.children.push(obj2)
+								currentUser.push(users[item][item2])
 							}
 							allUsers.push(obj)
 						}
 						this.allUsers = allUsers
-						this.currentUser = currentUser.slice(0,3)
+						this.currentUser = currentUser.slice(0,2)
 						this.userChange(this.currentUser)
 					}else{
 						this.$Message.error(data.info)

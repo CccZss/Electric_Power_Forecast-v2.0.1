@@ -92,7 +92,7 @@
                     	title: '权限',
                         key: 'admin',
                         render: (h, params) => {
-                        	return h('strong', params.row.admin === 0 ? '管理员' : '普通用户')
+                        	return h('strong', params.row.admin === '0' ? '管理员' : '普通用户')
                         }
                     },
                     {
@@ -149,7 +149,7 @@
                	this.updateUserId =  parame.row.id
             	this.updateUserName = parame.row.userName
             	this.updateUserAccount = parame.row.account
-                this.updateAdmin = parame.row.admin
+                this.updateAdmin = Number(parame.row.admin)
             	this.updateUserPassword = ''
             },
             toShowAddModel () {
@@ -193,7 +193,7 @@
                     id: this.updateUserId,
                     account: this.updateUserAccount,
                     password: this.updateUserPassword,
-                    admin: this.updateAdmin
+                    admin: this.updateAdmin.toString()
                 }).then((data) => {
                      if(data.state){
                         this.allUsers = this.user.allUsers

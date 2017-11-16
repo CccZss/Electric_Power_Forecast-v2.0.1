@@ -6,7 +6,7 @@
 	import echarts from 'echarts'
 
     export default {
-    	props: ['data', 'xAxisData', 'legend', 'min'],
+    	props: ['data', 'xAxisData', 'legend', 'max'],
 		data () {
 			return {
 				barEchart: null,
@@ -28,8 +28,8 @@
 						info.markLine = {
 							data : [
 								{
-									name: 'min',
-									yAxis: this.min
+									name: 'max',
+									yAxis: this.max
 								},
 							]
 						}

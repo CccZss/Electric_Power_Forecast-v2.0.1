@@ -38,7 +38,7 @@
 			</div>
 			<div slot="footer" style="text-align:center"> 
 				<Button type="primary" @click="yes">是，使用已有数据</Button>
-				<Button type="primary" @click="on">否，重新开始预测</Button>
+				<Button type="primary" @click="no">否，重新开始预测</Button>
 			</div>
     </Modal>
 	</section>
@@ -118,7 +118,7 @@
 						this.hasPredict = true
 					}else{
 						this.hasPredict = false
-						this.on()
+						this.no()
 					}
 				}).catch((err)=>{
 					this.$Message.error(err)
@@ -130,7 +130,7 @@
 					dataSetId: this.defaultDataId,
 					month: this.defaultMonth,
 					algorithm: this.defaultAlgorithm,
-					cover: 1
+					cover: '0'
 				}).then((data)=>{
 					if(data.state){
 						this.$Message.success(data.info)
@@ -143,12 +143,12 @@
 				this.hasPredict = false
 				this.showPredictionSection = false
 			},
-			on() {
+			no() {
 				this.prediction({
 					dataSetId: this.defaultDataId,
 					month: this.defaultMonth,
 					algorithm: this.defaultAlgorithm,
-					cover: 0
+					cover: '1'
 				}).then((data)=>{
 					if(data.state){
 						this.$Message.success(data.info)
@@ -211,7 +211,7 @@
 					this.init()
                 }else{
 					this.showPredictionSection = false
-                    this.$Message.error(data.info)
+                    this.$Message.info(data.info)
                 }
 			}).catch((err)=>{
                 this.$Message.error(err)

@@ -20,7 +20,7 @@ const actions = {
         //context: commit,dispatch,getters,state
         return new Promise((resolve, reject) => {
 
-            context.commit(types.mutations.setInfo,{
+            /*context.commit(types.mutations.setInfo,{
                 id: 1,
                 userName: 'czs',
                 account: '8888888888',
@@ -29,9 +29,9 @@ const actions = {
             resolve({
                 state: true,
                 info: 'success'
-            })
-
-            /*myAxios({
+            })*/
+            
+            myAxios({
                 method: 'GET',
                 url: 'user/userInfo',
             }).then(function(res){
@@ -49,21 +49,23 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.updatePassword]: (context, data) => {
         return new Promise((resolve, reject) => {
             console.log(data)
-            resolve({
+            
+            /* resolve({
                 state: true,
                 info: '修改成功'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: 'user/updatePwd',
+                data: data
             }).then(function(res){
                  if(res.data.state.toString()==="0"){
                     resolve({
@@ -78,7 +80,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
     
@@ -86,7 +88,8 @@ const actions = {
         //context: commit,dispatch,getters,state
         
         return new Promise((resolve, reject) => {
-            context.commit(types.mutations.setInfo,{
+            
+            /* context.commit(types.mutations.setInfo,{
                 allUsers: [
                     {
                         userName: '王小明',
@@ -135,9 +138,9 @@ const actions = {
             resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-           /*myAxios({
+            myAxios({
                 method: 'GET',
                 url: '/user/all',
             }).then(function(res){
@@ -157,14 +160,15 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.addUser]: (context, data) => {
         return new Promise((resolve, reject) => {
             console.log(data)
-            var allUsers = context.state.allUsers
+            
+            /* var allUsers = context.state.allUsers
             allUsers.push(data)
             context.commit(types.mutations.setInfo,{
                 allUsers: allUsers
@@ -172,9 +176,9 @@ const actions = {
             resolve({
                 state: true,
                 info: '添加成功'
-            })
+            }) */
 
-           /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: '/user/add',
                 data: data
@@ -195,14 +199,14 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.deleteUser]: (context, data) => {
         return new Promise((resolve, reject) => {
             
-            var allUsers = context.state.allUsers;
+            /* var allUsers = context.state.allUsers;
             for(var i=0; i<allUsers.length; i++) {
                 if(allUsers[i].id === data.id) {
                     allUsers.splice(i, 1)
@@ -215,9 +219,9 @@ const actions = {
             resolve({
                 state: true,
                 info: '删除成功'
-            })
+            }) */
 
-           /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: '/user/delete',
                 data: data
@@ -245,14 +249,14 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.updateUserInfo]: (context, data) => {
         return new Promise((resolve, reject) => {
             console.log(data)
-            var allUsers = context.state.allUsers;
+            /* var allUsers = context.state.allUsers;
             for(var i=0; i<allUsers.length; i++) {
                 if(allUsers[i].id === data.id) {
                     allUsers[i] = data
@@ -265,11 +269,12 @@ const actions = {
             resolve({
                 state: true,
                 info: '修改成功'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
-                url: 'user/updatePwd',
+                url: 'user/update',
+                data: data
             }).then(function(res){
                  if(res.data.state.toString()==="0"){
                     var allUsers = context.state.allUsers;
@@ -295,22 +300,22 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
     [types.actions.exit]: (context) => {
         return new Promise((resolve, reject) => {
-            resolve({
+            /* resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
-                method: 'POST',
+            myAxios({
+                method: 'GET',
                 url: '/user/exit',
             }).then(function(res){
-                 if(res.data.state.toString()==="1"){
+                if(res.data.state.toString()==="0"){
                     resolve({
                         state: true,
                         info: res.data.stateInfo}
@@ -323,7 +328,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 }

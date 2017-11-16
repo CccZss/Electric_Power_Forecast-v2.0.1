@@ -76,7 +76,7 @@
 			},
 			onSuccess (info) {
 				this.$Message.success(info);
-				window.location.href="./home.html"
+				window.location.href="/html/home.html"
 			},
 			onError (err) {
 				this.loadStatu = false

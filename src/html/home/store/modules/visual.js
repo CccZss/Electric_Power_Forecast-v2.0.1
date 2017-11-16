@@ -20,24 +20,18 @@ const actions = {
         //context: commit,dispatch,getters,state
         return new Promise((resolve, reject) => {
 
-            context.commit(types.mutations.setInfo,{
+            /* context.commit(types.mutations.setInfo,{
                 allUsers: {
-                    '地区': {
-                        'xx地区一': ['xx商场一', 'xx商场二', 'xx商场三'],
-                        'xx地区二': ['xx工厂一', 'xx工厂二']
-                    },
-                    '行业': {
-                        'IT': ['xx通信', 'xx游戏'],
-                        'xx行业': ['xx工业','xx工厂']
-                    }
+                    'xx地区一': ['xx商场一', 'xx商场二', 'xx商场三'],
+                    'xx地区二': ['xx工厂一', 'xx工厂二']
                 }
             })
             resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'GET',
                 url: 'customer/all',
             }).then(function(res){
@@ -57,7 +51,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
@@ -65,7 +59,7 @@ const actions = {
         //context: commit,dispatch,getters,state
         return new Promise((resolve, reject) => {
 
-            context.commit(types.mutations.setInfo,{
+            /* context.commit(types.mutations.setInfo,{
                 algorithmList: {
                     group: ['gggg'],
                     single: ['aaaa','eeee']
@@ -74,16 +68,16 @@ const actions = {
             resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: 'visualization/algorithm',
                 data: data
             }).then(function(res){
                 if(res.data.state.toString()==="0"){
                     context.commit(types.mutations.setInfo,{
-                        algorithmList: res.data.data
+                        algorithmList: res.data.data.algorithm                        
                     })
                     resolve({
                         state: true,
@@ -97,7 +91,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
@@ -106,23 +100,32 @@ const actions = {
         return new Promise((resolve, reject) => {
 
             console.log(data)
-            context.commit(types.mutations.setInfo,{
+            /* context.commit(types.mutations.setInfo,{
                 chartDdata: {
                     line: {
-                        y: [120, 132, 101, 134, 90, 230, 210],
+                        y_original: [120, 132, 101, 134,null,null,null],
+                        y_forecast: [null,null,null,134, 90, 230, 210],
+                        y_scatter: [null,null,90 ,125, 85, null, null],
                         x: ['2017-01','2017-02','2017-03','2017-04','2017-05','2017-05','2017-06'],
-                        firstPredictMonth: '2017-03',
-                        min: 123,
-                        max: 245
+                        legend: {
+                            original: '原始数据',
+                            forecast: '预测数据',
+                            test: '测试数据',
+                            max: '上限值',
+                            min: '下限值'
+                        },
+                        error: 0.2,
+                        customer: 'USERA',
+                        firstPredictMonth: '2017-04',
                     }
                 }
             })
             resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: 'visualization/elec',
                 data: data
@@ -143,7 +146,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
@@ -152,7 +155,7 @@ const actions = {
         return new Promise((resolve, reject) => {
 
             console.log(data)
-            context.commit(types.mutations.setInfo,{
+            /* context.commit(types.mutations.setInfo,{
                 chartDdata: {
                     bar: {
                         x: 'xx商场二',
@@ -174,11 +177,11 @@ const actions = {
             resolve({
                 state: true,
                 info: 'success'
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
-                url: 'visualization/elec',
+                url: 'visualization/errorBar',
                 data: data
             }).then(function(res){
                 if(res.data.state.toString()==="0"){
@@ -197,7 +200,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
@@ -205,14 +208,14 @@ const actions = {
         //context: commit,dispatch,getters,state
         return new Promise((resolve, reject) => {
 
-            console.log(data)
+            /*  console.log(data)
             resolve({
                 state: true,
                 info: 'success',
                 url: 'http://www.baidu.com'                
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: 'download/elec',
                 data: data
@@ -231,7 +234,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 
@@ -240,13 +243,13 @@ const actions = {
         return new Promise((resolve, reject) => {
 
             console.log(data)
-            resolve({
+            /* resolve({
                 state: true,
                 info: 'success',
                 url: 'http://www.baidu.com'                
-            })
+            }) */
 
-            /*myAxios({
+            myAxios({
                 method: 'POST',
                 url: 'download/error',
                 data: data
@@ -265,7 +268,7 @@ const actions = {
                 }
             }).catch(function(err){
                 reject(err)
-            })*/
+            })
         })
     },
 }

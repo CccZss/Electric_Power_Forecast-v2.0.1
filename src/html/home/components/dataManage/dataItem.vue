@@ -4,7 +4,7 @@
         <span @click="toDeleteData"><Icon type="trash-a" class="delete-bt"></Icon></span>
 		<br/>
         <Button class="data-info-bt" type="primary" @click="toDownData">下载数据</Button>
-        <Button class="data-info-bt" type="primary" @click="toGetDataInfo">查看数据</Button>
+        <Button class="data-info-bt" type="primary" @click="toGetDataInfo" :loading="loading">查看数据</Button>
 	</section>
 </template>
 
@@ -12,6 +12,11 @@
 	import {mapActions} from 'vuex';
 	import data from  '../../store/types/data'
 	export default {
+		data() {
+			return {
+				loading: false
+			}
+		},
 		props: ['dataName', 'id'],
 		methods: {
 			...mapActions(data.actions),
@@ -31,14 +36,16 @@
 			},
 
 			toGetDataInfo() {
+				this.loading = true
 				this.getDataInfo({
 					id: this.id
 				}).then((data)=>{
 					if(data.state){
-	                    this.$emit('show-data-info')
+						this.$emit('show-data-info')
 	                }else{
 	                    this.$Message.error(data.info)
-	                }
+					}
+					this.loading = false
 				}).catch((err)=>{
 	                this.$Message.error(err)
 				})

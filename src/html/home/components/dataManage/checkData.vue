@@ -9,9 +9,15 @@
 				@show-data-info = "showDataInfo"
 			></dataItem>
 		</div>
+		<center v-show="data.allDataList <= 0"><h1>尚未上传数据集，请到【导入数据】导入</h1></center>
 		<section v-show="column.length!=0" class="data-info-wrap">
 			<span @click="toClearDataInfo"><Icon type="close-circled" class="close-bt"></Icon></span>
-			<Table class="table" :columns="column" :data="columnData" border></Table>
+			<Table class="table" 
+				:columns="column" 
+				:data="columnData" 
+				:width="tableWidth" 
+				:height="tableHeight"
+				border></Table>
 			<section class="shadow"></section>
 		</section>
 	</section>
@@ -27,7 +33,9 @@
 			return {
 				allDatas: [],
 				column: [],
-				columnData: []
+				columnData: [],
+				tableWidth: undefined,
+				tableHeight: undefined
 			}
 		},
 		computed: {
@@ -71,6 +79,8 @@
 			}).catch((err)=>{
                 this.$Message.error(err)
 			})
+			this.tableWidth = document.body.clientWidth;
+			this.tableHeight = document.body.clientHeight - 20;
 		}
 	}
 </script>
@@ -89,17 +99,16 @@
 	}
 	.table {
 	    position: absolute;
-	    left: 20px;
 	    top: 50px;
-	    z-index: 6;
-	    padding: 10px;
+	    z-index: 100;
+	    padding: 5px;
 	    background-color: white;
 	}
 	.shadow{
 		position: absolute;
 		top: 0;
 		left: 0;
-		z-index: 5;
+		z-index: 99;
 		width: 100%;
 		height: 100%;
 		background-color: rgba(72, 72, 72, 0.48);
@@ -108,7 +117,7 @@
 		position: absolute;
 		right: 20px;
 		top: 10px;
-		z-index: 6;
+		z-index: 100;
 		color: white;
 		font-size: 35px;
 		cursor: pointer;

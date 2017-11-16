@@ -4,7 +4,7 @@
 	  	<router-view class="view"></router-view>
 	  	<section class="foot">
 	  		<span>www.gdut.edu.cn</span>　 
-	  		<span>粤ICP备05008833号</span>
+	  		<span>广东工业大学计算机学院</span>
 	  		<span>广州市番禺区广州大学城外环西路100号(510006)</span>
 	  	</section>
 	</section>
