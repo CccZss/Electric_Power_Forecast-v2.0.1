@@ -119,7 +119,6 @@
 					dataSetName: currentUser[0]
 				}).then((data)=>{
 					if(data.state){
-						console.log(this)
 						var groupAlgorithm = this.visual.algorithmList.group
 						var singleAlgorithm = this.visual.algorithmList.single
 						

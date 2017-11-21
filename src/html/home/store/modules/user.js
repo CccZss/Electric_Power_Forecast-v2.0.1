@@ -184,8 +184,10 @@ const actions = {
                 data: data
             }).then(function(res){
                  if(res.data.state.toString()==="0"){
+                    var allUsers = context.state.allUsers
+                    allUsers.push(res.data.data)
                     context.commit(types.mutations.setInfo,{
-                        allUsers: context.state.allUsers.push(res.data.data)
+                        allUsers: allUsers
                     })
                     resolve({
                         state: true,
@@ -205,7 +207,7 @@ const actions = {
 
     [types.actions.deleteUser]: (context, data) => {
         return new Promise((resolve, reject) => {
-            
+            console.log(data)
             /* var allUsers = context.state.allUsers;
             for(var i=0; i<allUsers.length; i++) {
                 if(allUsers[i].id === data.id) {
@@ -229,11 +231,12 @@ const actions = {
                  if(res.data.state.toString()==="0"){
                     var allUsers = context.state.allUsers;
                     for(var i=0; i<allUsers.length; i++) {
-                        if(allUsers[i].id === res.data.state.id) {
+                        if(allUsers[i].id === res.data.data.id) {
                             allUsers.splice(i, 1)
                             break
                         }
                     }
+                    console.log(allUsers)
                     context.commit(types.mutations.setInfo,{
                         allUsers: allUsers
                     })
@@ -287,7 +290,6 @@ const actions = {
                     context.commit(types.mutations.setInfo,{
                         allUsers: allUsers
                     })
-                    context.commit(types.mutations.setInfo,res.data.data)
                     resolve({
                         state: true,
                         info: res.data.stateInfo}

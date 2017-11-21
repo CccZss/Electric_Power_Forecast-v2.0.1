@@ -133,20 +133,29 @@
 				            type:'line',
 				            barWidth: '60%',
 				            data: this.yTopError,
-                            smooth: true,
+							smooth: true,
+							lineStyle: {
+								normal: {
+									width: 2,
+								}
+							}
 						},
 						{
 				            name: this.legend.min,
 				            type:'line',
 				            barWidth: '60%',
 				            data: this.yDownError,
-                            smooth: true,
+							smooth: true,
+							lineStyle: {
+								normal: {
+									width: 2,
+								}
+							}
 				        },
 						{
 							name: this.legend.test,
 							type: 'scatter',
-							data: this.yScatter
-
+							data: this.yScatter,
 						}
 				    ]
 				}

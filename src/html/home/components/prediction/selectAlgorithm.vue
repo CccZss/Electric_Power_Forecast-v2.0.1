@@ -70,7 +70,9 @@ export default {
                 }
 			})
 			
-			this.setDefaultAlgorithm(algorithm).then((data)=>{
+			this.setDefaultAlgorithm({
+				algorithm: algorithm
+			}).then((data)=>{
 				if(data.state){
 					this.$Message.success(data.info)
 				}else{

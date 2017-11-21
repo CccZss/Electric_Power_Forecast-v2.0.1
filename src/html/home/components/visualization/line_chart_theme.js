@@ -9,7 +9,7 @@ module.exports = {
         "#cda819",
         "#32a487",
         "#546570",
-        "#c4ccd3"
+        "#c4ccd3",
     ],
     "backgroundColor": "rgba(0,0,0,0)",
     "textStyle": {},
@@ -78,10 +78,12 @@ module.exports = {
     "scatter": {
         "itemStyle": {
             "normal": {
+                "color": '#795548',
                 "borderWidth": 0,
                 "borderColor": "#ccc"
             },
             "emphasis": {
+                "color": '#795548',
                 "borderWidth": 0,
                 "borderColor": "#ccc"
             }

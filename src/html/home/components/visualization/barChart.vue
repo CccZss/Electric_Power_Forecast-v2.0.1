@@ -84,7 +84,7 @@
 		},
 		watch: {
 			data () {
-    			this.barEchart.setOption(this.option)
+    			this.barEchart.setOption(this.option, true)
 			}
 		},
   		beforeDestroy () {

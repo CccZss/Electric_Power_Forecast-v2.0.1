@@ -44,7 +44,7 @@
 	                用户管理
 	            </template>
                 <MenuItem name="changePassword">修改密码</MenuItem>
-                <MenuItem name="manageAccounts">账户管理</MenuItem>
+                <MenuItem name="manageAccounts" v-if="user.admin.toString()==='0'">账户管理</MenuItem>
                 <MenuItem name="exit">退出登录</MenuItem>
 	        </Submenu>
 	    </Menu>
@@ -132,7 +132,7 @@
 	    background-color: white;
 	    box-shadow: 0 1px 1px rgba(0,0,0,.08);
 	    z-index: 5;
-       	border-top: 1px solid #3478b5;
+       	/* border-top: 1px solid #3478b5; */
 	}
 	.logo{
 		float: left;

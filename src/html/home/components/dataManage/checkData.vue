@@ -80,7 +80,7 @@
                 this.$Message.error(err)
 			})
 			this.tableWidth = document.body.clientWidth;
-			this.tableHeight = document.body.clientHeight - 20;
+			this.tableHeight = document.body.clientHeight - 50;
 		}
 	}
 </script>
@@ -100,6 +100,7 @@
 	.table {
 	    position: absolute;
 	    top: 50px;
+		left: 10px;
 	    z-index: 100;
 	    padding: 5px;
 	    background-color: white;

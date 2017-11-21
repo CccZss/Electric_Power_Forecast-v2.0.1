@@ -92,7 +92,7 @@
                     	title: '权限',
                         key: 'admin',
                         render: (h, params) => {
-                        	return h('strong', params.row.admin === '0' ? '管理员' : '普通用户')
+                        	return h('strong', params.row.admin.toString() === '0' ? '管理员' : '普通用户')
                         }
                     },
                     {
