@@ -71,7 +71,7 @@ const actions = {
             context.commit(types.mutations.setInfo,{
                 allAlgorithmList: {
                     group: ['Mix'],
-                    single: ['AdaBoost', 'CART', 'Extratrees', 'GBRT', 'Lasso', 'RF', 'Xgboost']
+                    single: ['AdaBoost', 'CART', 'ExtraTrees', 'GBRT', 'Lasso', 'Random Forest', 'Xgboost']
                 }
             })
             resolve({

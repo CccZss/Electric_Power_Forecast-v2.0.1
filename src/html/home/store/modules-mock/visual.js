@@ -103,8 +103,8 @@ const actions = {
                             RF: 0.30,
                             Xgboost: 0.50,
                         },
-                        algorithm: ['AdaBoost', 'CART', 'ExtrTree', 'GBRT', 'Lasso', 'Mix', 'RF', 'Xgboost'],
-                        min: 0.35
+                        algorithm: ['AdaBoost', 'CART', 'ExtraTrees', 'GBRT', 'Lasso', 'Mix', 'Random Forest', 'Xgboost'],
+                        max: 0.35
                     }
                 }
             })

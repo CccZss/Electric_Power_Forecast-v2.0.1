@@ -4,7 +4,6 @@
 
 <script>
 	import echarts from 'echarts'
-	import { mapActions } from 'vuex'  
 	import theme from './line_chart_theme'
 
     export default {
@@ -193,7 +192,6 @@
     			this.lineEchart.setOption(this.option)
     			window.addEventListener('resize', this.handleResize)
 			})
-			
 	    }	
 	}
 </script>

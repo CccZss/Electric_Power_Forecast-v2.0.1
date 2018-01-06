@@ -170,7 +170,7 @@ const actions = {
                             Xgboost: 0.50,
                         },
                         algorithm: ['AdaBoost', 'CART', 'ExtrTree', 'GBRT', 'Lasso', 'Mix', 'RF', 'Xgboost'],
-                        min: 0.35
+                        max: 0.35
                     }
                 }
             })
